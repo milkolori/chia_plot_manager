@@ -104,7 +104,7 @@ def process_plot():
             log.info(f'Processing Plot: {plot_path}')
             try:
                 remote_mount = str(subprocess.check_output(
-                    ['ssh', nas_server, 'grep enclosure /home/pi/mining/plot_manager/code/chianas/plot_manager_config | awk {\'print $3\'}']).decode(('utf-8'))).strip("\n")
+                    ['ssh', nas_server, 'grep Lots_ /home/pi/mining/plot_manager/code/chianas/plot_manager_config | awk {\'print $3\'}']).decode(('utf-8'))).strip("\n")
             except subprocess.CalledProcessError as e:
                 log.warning(e.output)  # TODO Do something here...cannot go on...
                 quit()

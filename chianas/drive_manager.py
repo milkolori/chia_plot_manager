@@ -286,7 +286,7 @@ def get_mountpoint_by_drive_number(drive):
     """
     partitions = psutil.disk_partitions(all=False)
     for p in partitions:
-        if p.device.startswith('/dev/sd') and p.mountpoint.startswith('/mnt/enclosure') and p.mountpoint.endswith(drive):
+        if p.device.startswith('/dev/sd') and p.mountpoint.startswith('/media/Lots') and p.mountpoint.endswith(drive):
             return [(p.mountpoint)]
 
 
@@ -296,7 +296,7 @@ def get_device_info_by_drive_number(drive):
     """
     partitions = psutil.disk_partitions(all=False)
     for p in partitions:
-        if p.device.startswith('/dev/sd') and p.mountpoint.startswith('/mnt/enclosure') and p.mountpoint.endswith(drive):
+        if p.device.startswith('/dev/sd') and p.mountpoint.startswith('/media/Lots_') and p.mountpoint.endswith(drive):
             return [(p.mountpoint, p.device)]
 
 
@@ -327,7 +327,7 @@ def get_list_of_plot_drives():
     partitions = psutil.disk_partitions(all=False)
     mountpoint = []
     for p in partitions:
-        if p.device.startswith('/dev/sd') and p.mountpoint.startswith('/mnt/enclosure'):
+        if p.device.startswith('/dev/sd') and p.mountpoint.startswith('/media/Lots'):
             mountpoint.append((p.mountpoint, p.device, p.fstype))
     return mountpoint
 
@@ -346,7 +346,7 @@ def get_all_available_system_space(type):
     partitions = psutil.disk_partitions(all=False)
     drive_space_available = []
     for p in partitions:
-        if p.device.startswith('/dev/sd') and p.mountpoint.startswith('/mnt/enclosure'):
+        if p.device.startswith('/dev/sd') and p.mountpoint.startswith('/media/Lots'):
             if type == 'all':
                 drive_space_available.append((p.mountpoint, shutil.disk_usage(p.mountpoint)))
             if type == 'total':
@@ -369,7 +369,7 @@ def get_plot_drive_with_available_space():
     """
     available_drives = []
     for part in psutil.disk_partitions(all=False):
-        if part.device.startswith('/dev/sd') and part.mountpoint.startswith('/mnt/enclosure') and get_drive_info(
+        if part.device.startswith('/dev/sd') and part.mountpoint.startswith('/media/Lots') and get_drive_info(
                 'space_free_plots_by_mountpoint', part.mountpoint) >= 1:
             available_drives.append((part.mountpoint, part.device))
     return (sorted(available_drives, key=lambda x: x[1]))
@@ -391,7 +391,7 @@ def get_plot_drive_to_use():
     available_drives = []
     for part in psutil.disk_partitions(all=False):
         if part.device.startswith('/dev/sd') \
-                and part.mountpoint.startswith('/mnt/enclosure') \
+                and part.mountpoint.startswith('/media/Lots') \
                 and get_drive_info('space_free_plots_by_mountpoint', part.mountpoint) >= 1 \
                 and get_drive_by_mountpoint(part.mountpoint) not in offlined_drives:
             drive = get_drive_by_mountpoint(part.mountpoint)
@@ -404,7 +404,7 @@ def get_sorted_drive_list():
     """
     available_drives = []
     for part in psutil.disk_partitions(all=False):
-        if part.device.startswith('/dev/sd') and part.mountpoint.startswith('/mnt/enclosure'):
+        if part.device.startswith('/dev/sd') and part.mountpoint.startswith('/media/Lots'):
             drive=get_drive_by_mountpoint(part.mountpoint)
             available_drives.append((part.mountpoint, part.device, drive))
     return natsorted(available_drives)

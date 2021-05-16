@@ -45,7 +45,7 @@ if testing:
     drive_activity_test = '/home/pi/mining/plot_manager/check_drive_activity.sh'
     drive_activity_log = '/home/pi/mining/plot_manager/drive_monitor.iostat'
 else:
-    plot_dir = '/mnt/enclosure1/front/column1/drive43'
+    plot_dir = '/media/mmv/Lots_Chia1'
     plot_size = 108644374730  # Based on K32 plot size
     status_file = '/home/pi/mining/plot_manager/local_transfer_job_running'
     drive_activity_test = '/home/pi/mining/plot_manager/check_drive_activity.sh'
