@@ -36,7 +36,7 @@ current_military_time = datetime.now().strftime('%H:%M:%S')
 current_timestamp = int(time.time())
 
 # Where is our Chia logfile located?
-chia_log = '/home/chia/.chia/mainnet/log/debug.log'
+chia_log = '/home/mmv/.chia/mainnet/log/debug.log'
 
 # Where do we log our new coins so we don't duplicate them?
 new_coin_log = '/home/pi/mining/plot_manager/coin_monitor/logs/new_coins.log'
