@@ -104,14 +104,14 @@ def process_plot():
             log.info(f'Processing Plot: {plot_path}')
             try:
                 remote_mount = str(subprocess.check_output(
-                    ['ssh', nas_server, 'grep Lots_ /home/pi/mining/plot_manager/code/chianas/plot_manager_config | awk {\'print $3\'}']).decode(('utf-8'))).strip("\n")
+                    ['ssh', "-i", "/home/mmv/.ssh/id_rsa", nas_server, 'grep Lots_ /home/pi/mining/plot_manager/code/chianas/plot_manager_config | awk {\'print $3\'}']).decode(('utf-8'))).strip("\n")
             except subprocess.CalledProcessError as e:
                 log.warning(e.output)  # TODO Do something here...cannot go on...
                 quit()
             log.debug(f'{nas_server} reports remote mount as {remote_mount}')
             subprocess.call(['/home/mmv/mining/plot_manager/code/chiaplot/send_plot.sh', plot_path, plot_to_process])
             try:
-                subprocess.call(['ssh', nas_server, '/home/pi/mining/plot_manager/code/chianas/kill_nc.sh'])  # make sure all of the nc processes are dead on the receiving end
+                subprocess.call(['ssh', "-i", "/home/mmv/.ssh/id_rsa", nas_server, '/home/pi/mining/plot_manager/code/chianas/kill_nc.sh'])  # make sure all of the nc processes are dead on the receiving end
                 log.debug('Remote nc kill called!')
             except subprocess.CalledProcessError as e:
                 log.warning(e.output)
@@ -149,14 +149,14 @@ def process_control(command, action):
             else:
                 os.open(status_file, os.O_CREAT)
                 try:
-                    subprocess.check_output(['ssh', nas_server, 'touch %s' % remote_checkfile])
+                    subprocess.check_output(['ssh', "-i", "/home/mmv/.ssh/id_rsa", nas_server, 'touch %s' % remote_checkfile])
                 except subprocess.CalledProcessError as e:
                     log.warning(e.output) #Nothing to add here yet as we are not using this function remotely (yet)
         if action == "stop":
             if os.path.isfile(status_file):
                 os.remove(status_file)
                 try:
-                    subprocess.check_output(['ssh', nas_server, 'rm %s' % remote_checkfile])
+                    subprocess.check_output(['ssh', "-i", "/home/mmv/.ssh/id_rsa", nas_server, 'rm %s' % remote_checkfile])
                 except subprocess.CalledProcessError as e:
                     log.warning(e.output) #Nothing to add here yet as we are not using this function remotely (yet)
             else:
@@ -178,7 +178,7 @@ def process_control(command, action):
                 log.warning(e.output)
             try:
                 log.debug(f'executing kill_nc')
-                subprocess.call(['ssh', nas_server, '/home/pi/mining/plot_manager/code/chianas/kill_nc.sh'])  # make sure all of the nc processes are dead on the receiving end
+                subprocess.call(['ssh', "-i", "/home/mmv/.ssh/id_rsa", nas_server, '/home/pi/mining/plot_manager/code/chianas/kill_nc.sh'])  # make sure all of the nc processes are dead on the receiving end
                 log.debug('Remote nc kill called!')
             except subprocess.CalledProcessError as e:
                 log.warning(e.output)
@@ -194,7 +194,7 @@ def verify_plot_move(remote_mount, plot_path, plot_to_process):
     log.debug('verify_plot_move() Started')
     log.debug (f'Verifing: {nas_server}: {remote_mount}/{plot_to_process}')
     try:
-        remote_plot_size = (int(subprocess.check_output(['ssh', nas_server, 'ls -al %s | awk {\'print $5\'}' % f'{remote_mount}/{plot_to_process}'])))
+        remote_plot_size = (int(subprocess.check_output(['ssh', "-i", "/home/mmv/.ssh/id_rsa", nas_server, 'ls -al %s | awk {\'print $5\'}' % f'{remote_mount}/{plot_to_process}'])))
     except subprocess.CalledProcessError as e:
         log.warning(e.output) #TODO Do something here...cannot go on...
         quit()
@@ -203,7 +203,7 @@ def verify_plot_move(remote_mount, plot_path, plot_to_process):
     log.debug(f'Local Plot Size Reported as: {local_plot_size}')
     if remote_plot_size == local_plot_size:
         try:
-            subprocess.check_output(['ssh', nas_server, 'touch %s' % '/home/pi/mining/plot_manager/new_plot_received'])
+            subprocess.check_output(['ssh', "-i", "/home/mmv/.ssh/id_rsa", nas_server, 'touch %s' % '/home/pi/mining/plot_manager/new_plot_received'])
         except subprocess.CalledProcessError as e:
             log.warning(e.output)
         return True
