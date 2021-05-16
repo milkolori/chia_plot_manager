@@ -163,6 +163,8 @@ def process_control(command, action):
                 log.debug(f'Status File: [{status_file}] does not exist!')
                 return
     elif command == 'check_status':
+        log.debug(f'check_status start')
+
         if os.path.isfile(status_file) and check_transfer():
             log.debug(f'Checkfile and Network Traffic Exists, We are currently Running a Transfer, Exiting')
             return True
@@ -208,6 +210,7 @@ def verify_plot_move(remote_mount, plot_path, plot_to_process):
         return False
 
 def check_transfer():
+    log.debug(f'check_transfer Start')
     try:
         with urllib.request.urlopen(f"http://localhost:61208/api/3/network/interface_name/{network_interface}") as url:
             data = json.loads(url.read().decode())
