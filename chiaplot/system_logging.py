@@ -48,7 +48,7 @@ def setup_logging(default_path='/home/mmv/mining/plot_manager/code/chiaplot/logg
 
 
 def read_logging_config(file, section, status):
-    pathname = '/home/mmv/mining/plot_manager/code/chiaplot' + file
+    pathname = '/home/mmv/mining/plot_manager/code/chiaplot/' + file
     config.read(pathname)
     if status == "logging":
         current_status = config.getboolean(section, status)

@@ -48,7 +48,7 @@ def setup_logging(default_path='/home/pi/mining/plot_manager/code/chianas/loggin
 
 
 def read_logging_config(file, section, status):
-    pathname = '/home/pi/mining/plot_manager/code/chianas' + file
+    pathname = '/home/pi/mining/plot_manager/code/chianas/' + file
     config.read(pathname)
     if status == "logging":
         current_status = config.getboolean(section, status)
