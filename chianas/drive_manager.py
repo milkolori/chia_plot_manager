@@ -279,7 +279,7 @@ def get_drive_by_mountpoint(mountpoint):
     drive32
     """
     log.debug(f'mountpoint: {mountpoint}')
-    return (mountpoint.split("/")[5])
+    return (mountpoint.split("/")[2])
 
 def get_mountpoint_by_drive_number(drive):
     """
