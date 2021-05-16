@@ -205,8 +205,8 @@ You need to alter the directory and name of the script to suite you needs. This 
 ```
 #!/bin/bash
 #
-ssh root@chianas01-internal "nohup /root/plot_manager/receive_plot.sh $2 > foo.out 2> foo.err < /dev/null &"
-sudo /usr/bin/pv "$1" | sudo /usr/bin/nc -q 5 chianas01-internal 4040
+ssh root@chiafarm01-internal "nohup /root/plot_manager/receive_plot.sh $2 > foo.out 2> foo.err < /dev/null &"
+sudo /usr/bin/pv "$1" | sudo /usr/bin/nc -q 5 chiafarm01-internal 4040
 ```
 Here are a few more paths you need to check. I would put line numbers but those could change, just search the code and replace as necessary.<br><br>
 
@@ -346,7 +346,7 @@ OK, once you have everything setup, on the plotter you simply run the script and
 2021-03-19 19:20:01,545 - plot_manager:126 - process_control: DEBUG process_control() called with [set_status] and [start]
 2021-03-19 19:20:02,228 - plot_manager:98 - process_plot: INFO Processing Plot: /mnt/ssdraid/array0/plot-k32-2021-03-18-02-33-xxx.plot
 2021-03-19 19:25:00,697 - plot_manager:165 - verify_plot_move: DEBUG verify_plot_move() Started
-2021-03-19 19:25:01,433 - plot_manager:171 - verify_plot_move: DEBUG Verifing: chianas01-internal: /mnt/enclosure0/front/column3/drive18/plot-k32-2021-03-18-02-33-xxx.plot
+2021-03-19 19:25:01,433 - plot_manager:171 - verify_plot_move: DEBUG Verifing: chiafarm01-internal: /mnt/enclosure0/front/column3/drive18/plot-k32-2021-03-18-02-33-xxx.plot
 2021-03-19 19:25:02,102 - plot_manager:176 - verify_plot_move: DEBUG Remote Plot Size Reported as: 108898704182
 2021-03-19 19:25:02,103 - plot_manager:178 - verify_plot_move: DEBUG Local Plot Size Reported as: 108898704182
 2021-03-19 19:25:02,103 - plot_manager:101 - process_plot: INFO Plot Sizes Match, we have a good plot move!

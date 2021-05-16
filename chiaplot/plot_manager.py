@@ -55,8 +55,8 @@ import psutil
 
 
 # Let's do some housekeeping
-nas_server = '10.0.1.8' # Internal 10Gbe link, entry in /etc/hosts
-plot_server = '10.0.1.9'
+nas_server = 'chiafarm01-internal' # Internal 10Gbe link, entry in /etc/hosts
+plot_server = 'chiaplot01'
 network_interface = 'enp9s0' # Network interface (ifconfig) that plots are sent over
 
 # Are we testing?
