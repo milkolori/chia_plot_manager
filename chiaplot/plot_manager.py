@@ -60,7 +60,7 @@ plot_server = 'chiaplot01'
 network_interface = 'enp9s0' # Network interface (ifconfig) that plots are sent over
 
 # Are we testing?
-testing = True
+testing = False
 if testing:
     plot_dir = '/home/mmv/mining/plot_manager/test_plots/'
     plot_size = 10000000
