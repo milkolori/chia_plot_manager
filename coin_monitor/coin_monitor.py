@@ -12,7 +12,7 @@ VERSION = "0.6 (2021-04-24)"
 import sys
 import re
 import os
-sys.path.append('/root/coin_monitor')
+sys.path.append('/home/pi/mining/plot_manager/code/coin_monitor')
 import subprocess
 import logging
 from system_logging import setup_logging
@@ -39,7 +39,7 @@ current_timestamp = int(time.time())
 chia_log = '/home/chia/.chia/mainnet/log/debug.log'
 
 # Where do we log our new coins so we don't duplicate them?
-new_coin_log = '/root/coin_monitor/logs/new_coins.log'
+new_coin_log = '/home/pi/mining/plot_manager/coin_monitor/logs/new_coins.log'
 
 # Setup Module logging. Main logging is configured in system_logging.py
 setup_logging()
@@ -52,7 +52,7 @@ log.setLevel(level)
 # If we are expecting a boolean back pass True/1 for bool,
 # otherwise False/0
 def read_config_data(file, section, item, bool):
-    pathname = '/root/coin_monitor/' + file
+    pathname = '/home/pi/mining/plot_manager/code/coin_monitor/' + file
     config.read(pathname)
     if bool:
         return config.getboolean(section, item)
@@ -61,7 +61,7 @@ def read_config_data(file, section, item, bool):
 
 
 def update_config_data(file, section, item, value):
-    pathname = '/root/coin_monitor/' + file
+    pathname = '/home/pi/mining/plot_manager/code/coin_monitor/' + file
     config.read(pathname)
     cfgfile = open(pathname, 'w')
     config.set(section, item, value)
