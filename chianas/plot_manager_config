@@ -6,7 +6,7 @@ logging = True
 log_level = DEBUG
 
 [notifications]
-alerting = True
+alerting = False
 pb = False
 email = True
 sms = False
