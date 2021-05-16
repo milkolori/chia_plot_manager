@@ -55,22 +55,22 @@ import psutil
 
 
 # Let's do some housekeeping
-nas_server = 'chianas01-internal' # Internal 10Gbe link, entry in /etc/hosts
-plot_server = 'chiaplot01'
-network_interface = 'VLAN95_AR03_1-1' # Network interface (ifconfig) that plots are sent over
+nas_server = '10.0.1.8' # Internal 10Gbe link, entry in /etc/hosts
+plot_server = '10.0.1.9'
+network_interface = 'enp9s0' # Network interface (ifconfig) that plots are sent over
 
 # Are we testing?
 testing = False
 if testing:
-    plot_dir = '/home/chia/plot_manager/test_plots/'
+    plot_dir = '/home/mmv/mining/plot_manager/test_plots/'
     plot_size = 10000000
-    status_file = '/home/chia/plot_manager/transfer_job_running_testing'
+    status_file = '/home/mmv/mining/plot_manager/transfer_job_running_testing'
 else:
-    plot_dir = '/mnt/ssdraid/array0/'
+    plot_dir = '/media/mmv/Lots_Chia1/'
     plot_size = 108644374730  # Based on K32 plot size
-    status_file = '/home/chia/plot_manager/transfer_job_running'
+    status_file = '/home/mmv/mining/plot_manager/transfer_job_running'
 
-remote_checkfile = '/root/plot_manager/remote_transfer_is_active'
+remote_checkfile = '/home/pi/mining/plot_manager/remote_transfer_is_active'
 
 # Setup Module logging. Main logging is configured in system_logging.py
 setup_logging()
