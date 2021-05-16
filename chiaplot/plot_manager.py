@@ -173,7 +173,7 @@ def process_control(command, action):
             os.remove(status_file)
             try:
                 log.debug(f'executing {remote_checkfile}')
-                subprocess.check_output(['ssh', nas_server, 'rm %s' % remote_checkfile])
+                subprocess.check_output(['ssh', "-i", "/home/mmv/.ssh/id_rsa", nas_server, 'rm %s' % remote_checkfile])
             except subprocess.CalledProcessError as e:
                 log.warning(e.output)
             try:
