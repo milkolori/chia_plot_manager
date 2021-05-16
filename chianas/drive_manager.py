@@ -96,7 +96,7 @@ blue='\033[0;34m'
 nc='\033[0m'
 
 import sentry_sdk
-
+""" Milko commented for now
 sentry_sdk.init(
     "https://xxxxxxxxxxxxxxxxxxxxxxx.ingest.sentry.io/xxxxxxxxx",
 
@@ -105,6 +105,7 @@ sentry_sdk.init(
     # We recommend adjusting this value in production.
     traces_sample_rate=1.0
 )
+"""
 from sentry_sdk import capture_exception
 
 # Let's do some housekeeping
