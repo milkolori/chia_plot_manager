@@ -172,10 +172,12 @@ def process_control(command, action):
             log.debug('WARNING! - Checkfile exists but there is no network traffic! Forcing Reset')
             os.remove(status_file)
             try:
+                log.debug(f'executing {remote_checkfile}')
                 subprocess.check_output(['ssh', nas_server, 'rm %s' % remote_checkfile])
             except subprocess.CalledProcessError as e:
                 log.warning(e.output)
             try:
+                log.debug(f'executing kill_nc')
                 subprocess.call(['ssh', nas_server, '/home/pi/mining/plot_manager/code/chianas/kill_nc.sh'])  # make sure all of the nc processes are dead on the receiving end
                 log.debug('Remote nc kill called!')
             except subprocess.CalledProcessError as e:
