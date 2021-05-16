@@ -42,7 +42,7 @@ VERSION = "0.5 (2021-04-22)"
 
 import os
 import sys
-sys.path.append('/home/chia/plot_manager')
+sys.path.append('/home/mmv/mining/plot_manager/code/chiaplot')
 import subprocess
 import logging
 from system_logging import setup_logging
@@ -60,7 +60,7 @@ plot_server = '10.0.1.9'
 network_interface = 'enp9s0' # Network interface (ifconfig) that plots are sent over
 
 # Are we testing?
-testing = False
+testing = True
 if testing:
     plot_dir = '/home/mmv/mining/plot_manager/test_plots/'
     plot_size = 10000000
@@ -109,7 +109,7 @@ def process_plot():
                 log.warning(e.output)  # TODO Do something here...cannot go on...
                 quit()
             log.debug(f'{nas_server} reports remote mount as {remote_mount}')
-            subprocess.call(['/home/chia/plot_manager/send_plot.sh', plot_path, plot_to_process])
+            subprocess.call(['/home/mmv/mining/plot_manager/code/chiaplot/send_plot.sh', plot_path, plot_to_process])
             try:
                 subprocess.call(['ssh', nas_server, '/root/plot_manager/kill_nc.sh'])  # make sure all of the nc processes are dead on the receiving end
                 log.debug('Remote nc kill called!')
