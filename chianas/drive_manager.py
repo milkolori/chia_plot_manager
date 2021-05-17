@@ -520,7 +520,7 @@ def update_receive_plot():
             notify('Plot Drive Updated', f'Plot Drive Updated: Was: {current_plotting_drive},  Now: {get_plot_drive_to_use()}')
             f = open(receive_script, 'w+')
             f.write('#! /bin/bash \n')
-            f.write(f'nc -l -q5 -p 4040 > "{get_plot_drive_to_use()}/$1" < /dev/null')
+            f.write(f'nc -l -p 4040 > "{get_plot_drive_to_use()}/$1" < /dev/null')
             f.close()
             update_config_data('plot_manager_config', 'plotting_drives', 'current_plotting_drive', get_plot_drive_to_use())
             log.info(f'Updated {receive_script} and system config file with new plot drive.')
