@@ -52,6 +52,7 @@ import pathlib
 import json
 import urllib.request
 import psutil
+import time
 
 
 # Let's do some housekeeping
@@ -261,6 +262,9 @@ def main():
         
         if not read_logging_config('plot_manager_config', 'system_settings', 'run_forever'):
             break
+
+        time.sleep(60)
+
 
 if __name__ == '__main__':
     main()
