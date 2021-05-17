@@ -10,8 +10,8 @@ alerting = False
 pb = False
 email = False
 sms = False
-new_plot_drive = True
-daily_update = True
+new_plot_drive = False
+daily_update = False
 per_plot = False
 
 [plotting_drives]
