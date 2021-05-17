@@ -8,14 +8,14 @@ log_level = DEBUG
 [notifications]
 alerting = False
 pb = False
-email = True
+email = False
 sms = False
 new_plot_drive = True
 daily_update = True
 per_plot = False
 
 [plotting_drives]
-current_plotting_drive = /media/Lots_Plot2
+current_plotting_drive = /media/Lots_Plot
 
 [plotting_information]
 current_total_plots_midnight = 1428

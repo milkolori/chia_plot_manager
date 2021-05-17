@@ -122,7 +122,7 @@ def process_plot():
                 process_control('set_status', 'stop') #Set to stop so it will attempt to run again in the event we want to retry....
                 main() # Try Again
             process_control('set_status', 'stop')
-            os.remove(plot_path)
+            # Milko: TODO os.remove(plot_path)
             log.info(f'Removing: {plot_path}')
         elif testing:
             log.debug('Testing Only - Nothing will be Done!')
