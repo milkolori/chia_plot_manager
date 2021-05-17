@@ -1,0 +1,1 @@
+sudo python plot_manager.py > /home/mmv/mining/plot_manager/logs/runtime.log 2>&1 &
