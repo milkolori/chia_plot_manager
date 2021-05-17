@@ -615,7 +615,7 @@ def temperature_report():
     print(f'{blue}#    {nc}Serial#{blue}     #{nc}     Device{blue}     #{nc}     Drive{blue}     #{nc}    Temp{blue}     #{nc}')
     print(f'{blue}#################################################################{nc}')
     for drive in get_sorted_drive_list():
-        print(f'{blue}#{nc}   {Device(str(drive[1])).serial}'f'{blue}')
+        print(f'{blue}#{nc}   {str(Device(str(drive[1])).serial)}'f'{blue}')
     print(f'{blue}##################################################################{nc}')
     print('')
     print('')
