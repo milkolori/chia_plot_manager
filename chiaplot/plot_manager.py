@@ -251,12 +251,16 @@ def verify_glances_is_running():
 
 
 def main():
-    if verify_glances_is_running():
-        process_plot()
-    else:
-        print('Glances is Required for this script!')
-        print('Please install and restart this script.')
-        exit()
+    while True:
+        if verify_glances_is_running():
+            process_plot()
+        else:
+            print('Glances is Required for this script!')
+            print('Please install and restart this script.')
+            exit()
+        
+        if not read_logging_config('plot_manager_config', 'system_settings', 'run_forever'):
+            break
 
 if __name__ == '__main__':
     main()

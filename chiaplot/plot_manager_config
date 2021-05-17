@@ -1,5 +1,6 @@
 [system_settings]
 debug = True
+run_forever = True
 
 [system_logging]
 logging = True
