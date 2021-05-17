@@ -15,7 +15,7 @@ daily_update = True
 per_plot = False
 
 [plotting_drives]
-current_plotting_drive = /media/Lots_Plot
+current_plotting_drive = /media/usb
 
 [plotting_information]
 current_total_plots_midnight = 1428
