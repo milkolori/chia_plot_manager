@@ -253,6 +253,7 @@ def verify_glances_is_running():
 
 def main():
     while True:
+        log.debug('Plot manager starting')
         if verify_glances_is_running():
             process_plot()
         else:
@@ -263,6 +264,7 @@ def main():
         if not read_logging_config('plot_manager_config', 'system_settings', 'run_forever'):
             break
 
+        log.debug('Plot manager run_forever is set to True. Process will continue after 60 sec sleep')
         time.sleep(60)
 
 
