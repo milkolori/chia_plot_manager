@@ -432,7 +432,7 @@ def log_drive_report():
         get_device_by_mountpoint(get_plot_drive_to_use())[0][1],
         bytes2human(usage.total),
         get_drive_info('space_free_plots_by_mountpoint', (get_plot_drive_to_use())),
-        Device(get_device_by_mountpoint(get_plot_drive_to_use())[0][1]).serial,
+        str(Device(get_device_by_mountpoint(get_plot_drive_to_use())[0][1]).serial),
         Device(get_device_by_mountpoint(get_plot_drive_to_use())[0][1]).temperature,
         get_device_by_mountpoint(get_plot_drive_to_use())[0][0]))
 
