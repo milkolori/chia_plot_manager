@@ -63,7 +63,7 @@ network_interface = 'enp9s0' # Network interface (ifconfig) that plots are sent 
 # Are we testing?
 testing = True
 if testing:
-    plot_dirs = ['/Users/milko/mining/test_plot_manager/hdd1/', '/Users/milko/mining/test_plot_manager/hdd2/', '/Users/milko/mining/test_plot_manager/hdd3/']
+    plot_dirs = ['/Users/milko/mining/test_plot_manager/hdd1/', '/Users/milko/mining/test_plot_manager/hdd2/', '/Users/milko/mining/test_plot_manager/hdd3/', '/media/mmv/Lots_Plot1/']
     plot_size = 10000000
     status_file = '/home/mmv/mining/plot_manager/transfer_job_running_testing'
 else:
