@@ -61,13 +61,13 @@ plot_server = 'chiaplot01'
 network_interface = 'enp9s0' # Network interface (ifconfig) that plots are sent over
 
 # Are we testing?
-testing = False
+testing = True
 if testing:
-    plot_dir = '/home/mmv/mining/plot_manager/test_plots/'
+    plot_dirs = ['/Users/milko/mining/test_plot_manager/hdd1/', '/Users/milko/mining/test_plot_manager/hdd2/', '/Users/milko/mining/test_plot_manager/hdd3/']
     plot_size = 10000000
     status_file = '/home/mmv/mining/plot_manager/transfer_job_running_testing'
 else:
-    plot_dir = '/media/mmv/Lots_Plot1/'
+    plot_dirs = ['/media/mmv/Lots_Plot1/', '/media/mmv/temp2/', '/media/mmv/Lots_Chia1/', '/media/mmv/Lots_Chia2/', '/media/mmv/Lots_Chia3/', '/media/mmv/Lots_Chia4/']
     plot_size = 108644374730  # Based on K32 plot size
     status_file = '/home/mmv/mining/plot_manager/transfer_job_running'
 
@@ -84,13 +84,17 @@ log.setLevel(level)
 # size check for sanity's sake.
 def get_list_of_plots():
     log.debug('get_list_of_plots() Started')
-    try:
-        plot_to_process = [plot for plot in pathlib.Path(plot_dir).glob("*.plot") if plot.stat().st_size > plot_size]
-        log.debug(f'{plot_to_process[0].name}')
-        return (plot_to_process[0].name)
-    except IndexError:
-        log.debug(f'{plot_dir} is Empty: No Plots to Process. Will check again soon!')
-        return False
+
+    for plot_dir in plot_dirs:
+        try:
+            plot_to_process = [plot for plot in pathlib.Path(plot_dir).glob("*.plot") if plot.stat().st_size > plot_size]
+            log.debug(f'{plot_to_process[0].name}')
+            return (plot_dir, plot_to_process[0].name)
+        except IndexError:
+            log.debug(f'{plot_dir} is Empty: No Plots to Process.')
+
+    log.debug(f'All plot directories are empty. Will check again soon!')
+    return (False, False)
 
 # If we have plots and we are NOT currently transferring another plot and
 # we are NOT testing the script, then process the next plot if there is
@@ -98,7 +102,9 @@ def get_list_of_plots():
 def process_plot():
     log.debug('process_plot() Started')
     if not process_control('check_status', 0):
-        plot_to_process = get_list_of_plots()
+        
+        plot_dir, plot_to_process = get_list_of_plots()
+
         if plot_to_process and not testing:
             process_control('set_status', 'start')
             plot_path = plot_dir + plot_to_process
@@ -252,20 +258,13 @@ def verify_glances_is_running():
 
 
 def main():
-    while True:
-        log.debug('Plot manager starting')
-        if verify_glances_is_running():
-            process_plot()
-        else:
-            print('Glances is Required for this script!')
-            print('Please install and restart this script.')
-            exit()
-        
-        if not read_logging_config('plot_manager_config', 'system_settings', 'run_forever'):
-            break
-
-        log.debug('Plot manager run_forever is set to True. Process will continue after 60 sec sleep')
-        time.sleep(60)
+    log.debug('Plot manager starting')
+    if verify_glances_is_running():
+        process_plot()
+    else:
+        print('Glances is Required for this script!')
+        print('Please install and restart this script.')
+        exit()
 
 
 if __name__ == '__main__':
