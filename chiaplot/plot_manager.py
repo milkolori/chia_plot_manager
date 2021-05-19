@@ -67,7 +67,7 @@ if testing:
     plot_size = 10000000
     status_file = '/home/mmv/mining/plot_manager/transfer_job_running_testing'
 else:
-    plot_dirs = ['/media/mmv/Lots_Plot1/', '/media/mmv/temp2/', '/media/mmv/Lots_Chia1/', '/media/mmv/Lots_Chia2/', '/media/mmv/Lots_Chia3/', '/media/mmv/Lots_Chia4/']
+    plot_dirs = ['/media/mmv/Lots_Plot1/', '/media/mmv/temp2/', '/media/mmv/Lots_Chia2/', '/media/mmv/Lots_Chia3/', '/media/mmv/Lots_Chia4/', '/media/mmv/Lots_Chia1/']
     plot_size = 108644374730  # Based on K32 plot size
     status_file = '/home/mmv/mining/plot_manager/transfer_job_running'
 
