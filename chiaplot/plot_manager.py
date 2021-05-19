@@ -61,7 +61,7 @@ plot_server = 'chiaplot01'
 network_interface = 'enp9s0' # Network interface (ifconfig) that plots are sent over
 
 # Are we testing?
-testing = False
+testing = True
 if testing:
     plot_dirs = ['/Users/milko/mining/test_plot_manager/hdd1/', '/Users/milko/mining/test_plot_manager/hdd2/', '/Users/milko/mining/test_plot_manager/hdd3/', '/media/mmv/Lots_Plot1/']
     plot_size = 10000000
@@ -77,8 +77,10 @@ remote_checkfile = '/home/pi/mining/plot_manager/remote_transfer_is_active'
 setup_logging()
 level = read_logging_config('plot_manager_config', 'system_logging', 'log_level')
 level = logging._checkLevel(level)
+logging.basicConfig(format='%(asctime)s %(message)s')
 log = logging.getLogger(__name__)
 log.setLevel(level)
+
 
 # Look in our plot directory and get a list of plots. Do a basic
 # size check for sanity's sake.
