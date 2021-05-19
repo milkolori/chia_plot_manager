@@ -61,7 +61,7 @@ plot_server = 'chiaplot01'
 network_interface = 'enp9s0' # Network interface (ifconfig) that plots are sent over
 
 # Are we testing?
-testing = True
+testing = False
 if testing:
     plot_dirs = ['/Users/milko/mining/test_plot_manager/hdd1/', '/Users/milko/mining/test_plot_manager/hdd2/', '/Users/milko/mining/test_plot_manager/hdd3/', '/media/mmv/Lots_Plot1/']
     plot_size = 10000000
