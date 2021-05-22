@@ -45,7 +45,7 @@ if testing:
     drive_activity_test = '/home/pi/mining/plot_manager/check_drive_activity.sh'
     drive_activity_log = '/home/pi/mining/plot_manager/drive_monitor.iostat'
 else:
-    plot_dir = '/media/mmv/Lots_Chia1'
+    plot_dirs = ['/media/mmv/Ven_Work1', '/media/mmv/Ven_Work2', '/media/mmv/Ven_Work3', '/media/mmv/Ven_Work4']
     plot_size = 108644374730  # Based on K32 plot size
     status_file = '/home/pi/mining/plot_manager/local_transfer_job_running'
     drive_activity_test = '/home/pi/mining/plot_manager/check_drive_activity.sh'
@@ -80,13 +80,17 @@ def read_config_data(file, section, item, bool):
 # size check for sanity's sake.
 def get_list_of_plots():
     log.debug('get_list_of_plots() Started')
-    try:
-        plot_to_process = [plot for plot in pathlib.Path(plot_dir).glob("*.plot") if plot.stat().st_size > plot_size]
-        log.debug(f'{plot_to_process[0].name}')
-        return (plot_to_process[0].name)
-    except IndexError:
-        log.debug(f'{plot_dir} is Empty: No Plots to Process. Will check again soon!')
-        return False
+
+    for plot_dir in plot_dirs:
+        try:
+            plot_to_process = [plot for plot in pathlib.Path(plot_dir).glob("*.plot") if plot.stat().st_size > plot_size]
+            log.debug(f'{plot_to_process[0].name}')
+            return (plot_dir, plot_to_process[0].name)
+        except IndexError:
+            log.debug(f'{plot_dir} is Empty: No Plots to Process.')
+            
+    log.debug(f'All plot directories are empty. Will check again soon!')
+    return (False, False)
 
 # If we have plots and we are NOT currently transferring another plot and
 # we are NOT testing the script, then process the next plot if there is
@@ -94,7 +98,9 @@ def get_list_of_plots():
 def process_plot():
     log.debug('process_plot() Started')
     if not process_control('check_status', 0):
-        plot_to_process = get_list_of_plots()
+        
+        plot_dir, plot_to_process = get_list_of_plots()
+
         if plot_to_process and not testing:
             process_control('set_status', 'start')
             plot_path = plot_dir + '/' + plot_to_process
