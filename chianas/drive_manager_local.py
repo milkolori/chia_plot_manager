@@ -401,6 +401,7 @@ def get_plot_drive_to_use():
                 and get_drive_by_mountpoint(part.mountpoint) not in offlined_drives:
             drive = get_drive_by_mountpoint(part.mountpoint)
             available_drives.append((part.mountpoint, part.device, drive))
+    log.debug(f'available_drives[{available_drives}]')
     return (natsorted(available_drives)[0][0])
 
 def get_sorted_drive_list():
