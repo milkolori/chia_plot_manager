@@ -395,6 +395,7 @@ def get_plot_drive_to_use():
         offlined_drives = [current_drives.rstrip() for current_drives in offlined_drives_list.readlines()]
     available_drives = []
     for part in psutil.disk_partitions(all=False):
+        log.debug(f'part.device[{part.device}]')
         if part.device.startswith('/dev/sd') \
                 and part.mountpoint.startswith(target_drive_pattern) \
                 and get_drive_info('space_free_plots_by_mountpoint', part.mountpoint) >= 1 \
