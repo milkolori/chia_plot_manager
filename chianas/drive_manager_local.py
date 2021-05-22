@@ -115,7 +115,7 @@ plot_size_g = 101.3623551
 receive_script = '/home/mmv/mining/plot_manager/receive_plot.sh'
 chia_log_file = '/home/pi/.chia/mainnet/log/debug.log'
 #milko start
-target_drive_pattern='/media/Ven_Work'
+target_drive_pattern='/media/mmv/Ven_Work'
 #milko end
 
 # Date and Time Stuff
@@ -395,11 +395,6 @@ def get_plot_drive_to_use():
         offlined_drives = [current_drives.rstrip() for current_drives in offlined_drives_list.readlines()]
     available_drives = []
     for part in psutil.disk_partitions(all=False):
-        size = get_drive_info('space_free_plots_by_mountpoint', part.mountpoint) 
-        log.debug(f'offlined_drives - {offlined_drives}')
-        log.debug(f'part.device[{part.device}]')
-        log.debug(f' - mountpoint[{part.mountpoint}]')
-        log.debug(f' - space_free_plots_by_mountpoint[{size}]')
         if part.device.startswith('/dev/sd') \
                 and part.mountpoint.startswith(target_drive_pattern) \
                 and get_drive_info('space_free_plots_by_mountpoint', part.mountpoint) >= 1 \
