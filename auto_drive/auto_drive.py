@@ -80,7 +80,7 @@ def get_next_mountpoint():
     (d) looks like this:
     {'/mnt/enclosure0/front/column0/drive0': True}
     """
-    path_glob = '/media/Lots_Chia[A-Za-z0-9]*/*'
+    path_glob = '/media/Lots_Chia[0-9]*'
     d = {abspath(d): ismount(d) for d in glob(path_glob)}
     return sorted([p for p in d if not d[p]])[0]
 
