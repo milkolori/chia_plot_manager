@@ -70,8 +70,8 @@ import psutil
 from pySMART import Device, DeviceList # CAUTION - DO NOT use PyPI version, use https://github.com/truenas/py-SMART
 from psutil._common import bytes2human
 import logging
-from system_logging import setup_logging
-from system_logging import read_logging_config
+from system_logging_local import setup_logging
+from system_logging_local import read_logging_config
 import system_info
 from pushbullet import Pushbullet, errors as pb_errors
 from twilio.rest import Client
