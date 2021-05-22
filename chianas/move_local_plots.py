@@ -22,12 +22,12 @@ sys.path.append('/home/pi/mining/plot_manager/code/chianas')
 import logging
 import psutil
 import configparser
-from system_logging import setup_logging
-from system_logging import read_logging_config
+from system_logging_local import setup_logging
+from system_logging_local import read_logging_config
 import pathlib
 import shutil
 from timeit import default_timer as timer
-from drive_manager import get_device_by_mountpoint
+from drive_manager_local import get_device_by_mountpoint
 import subprocess
 
 
