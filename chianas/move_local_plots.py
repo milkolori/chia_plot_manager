@@ -97,9 +97,9 @@ def get_list_of_plots():
 # one to process.
 def process_plot():
     log.debug('process_plot() Started')
-    if not process_control('check_status', 0):
-        
-        plot_dir, plot_to_process = get_list_of_plots()
+    plot_dir, plot_to_process = get_list_of_plots()
+
+    if not process_control('check_status', 0, plot_dir):
 
         if plot_to_process and not testing:
             process_control('set_status', 'start', plot_dir)
