@@ -48,7 +48,7 @@ else:
     plot_dirs = ['/media/mmv/Ven_Work1', '/media/mmv/Ven_Work2', '/media/mmv/Ven_Work3', '/media/mmv/Ven_Work4']
     plot_size = 108644374730  # Based on K32 plot size
     status_file = '/home/mmv/mining/plot_manager/local_transfer_job_running'
-    drive_activity_test = '/home/mmv/mining/plot_manager/chianas/check_drive_activity.sh'
+    drive_activity_test = '/home/mmv/mining/plot_manager/code/chianas/check_drive_activity.sh'
     drive_activity_log = '/home/mmv/mining/plot_manager/logs/drive_monitor.iostat'
 
 
