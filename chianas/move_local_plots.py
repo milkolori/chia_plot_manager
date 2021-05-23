@@ -100,10 +100,10 @@ def process_plot():
     log.debug('process_plot() Started')
     plot_dir, plot_to_process = get_list_of_plots()
 
-    if not process_control('check_status', 0, plot_dir):
+    if not process_control('check_status', 0):
 
         if plot_to_process and not testing:
-            process_control('set_status', 'start', plot_dir)
+            process_control('set_status', 'start')
             plot_path = plot_dir + '/' + plot_to_process
             log.info(f'Processing Plot: {plot_path}')
             current_plotting_drive = read_config_data('plot_manager_config', 'plotting_drives', 'current_plotting_drive', False)
@@ -121,9 +121,9 @@ def process_plot():
                 log.info(f'Total Elapsed Time: {end_time - start_time:.2f} seconds or {(end_time - start_time)/60:.2f} Minutes')
             else:
                 log.debug('FAILURE - Plot sizes DO NOT Match')
-                process_control('set_status', 'stop', plot_dir)  #Set to stop so it will attempt to run again in the event we want to retry....
+                process_control('set_status', 'stop')  #Set to stop so it will attempt to run again in the event we want to retry....
                 main() # Try Again
-            process_control('set_status', 'stop', plot_dir)
+            process_control('set_status', 'stop')
             os.remove(plot_path)
             log.info(f'Removing: {plot_path}')
         elif testing:
@@ -148,7 +148,7 @@ def verify_plot_move(current_plotting_drive, plot_path, plot_to_process):
         return False
 
 
-def process_control(command, action, plot_dir):
+def process_control(command, action):
     log.debug(f'process_control() called with [{command}] and [{action}]')
     if command == 'set_status':
         if action == "start":
@@ -179,8 +179,8 @@ def process_control(command, action, plot_dir):
 
 def check_drive_activity():
     try:
-        
-        drive = get_device_by_mountpoint(get_plot_drive_to_use())[0][1].split('/')[2]
+        current_plotting_drive = read_config_data('plot_manager_config', 'plotting_drives', 'current_plotting_drive', False)
+        drive = get_device_by_mountpoint(current_plotting_drive())[0][1].split('/')[2]
         log.debug(f'mounting point drive:{drive}')
         subprocess.call([drive_activity_test, drive])
     except subprocess.CalledProcessError as e:
