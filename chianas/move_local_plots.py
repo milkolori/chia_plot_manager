@@ -18,7 +18,7 @@ VERSION = "0.5 (2021-04-22)"
 
 import os
 import sys
-sys.path.append('/home/pi/mining/plot_manager/code/chianas')
+sys.path.append('/home/mmv/mining/plot_manager/code/chianas')
 import logging
 import psutil
 import configparser
@@ -39,7 +39,7 @@ import subprocess
 # Are we testing?
 testing = False
 if testing:
-    plot_dir = '/home/pi/mining/plot_manager/test_plots/'
+    plot_dir = '/home/mmv/mining/plot_manager/test_plots/'
     plot_size = 10000000
     status_file = '/home/mmv/mining/plot_manager/local_transfer_job_running_testing'
     drive_activity_test = '/home/mmv/mining/plot_manager/check_drive_activity.sh'
@@ -69,7 +69,7 @@ log.setLevel(level)
 # otherwise False/0
 config = configparser.ConfigParser()
 def read_config_data(file, section, item, bool):
-    pathname = '/home/pi/mining/plot_manager/code/chianas/' + file
+    pathname = '/home/mmv/mining/plot_manager/code/chianas/' + file
     config.read(pathname)
     if bool:
         return config.getboolean(section, item)
