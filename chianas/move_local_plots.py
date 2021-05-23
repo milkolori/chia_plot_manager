@@ -28,6 +28,7 @@ import pathlib
 import shutil
 from timeit import default_timer as timer
 from drive_manager_local import get_device_by_mountpoint
+from drive_manager_local import get_plot_drive_to_use
 import subprocess
 
 
@@ -163,10 +164,10 @@ def process_control(command, action, plot_dir):
                 log.debug(f'Status File: [{status_file}] does not exist!')
                 return
     elif command == 'check_status':
-        if os.path.isfile(status_file) and check_drive_activity(plot_dir):
+        if os.path.isfile(status_file) and check_drive_activity():
             log.debug(f'Checkfile Exists and Disk I/O is present, We are currently Copying a Plot, Exiting')
             return True
-        elif os.path.isfile(status_file) and not check_drive_activity(plot_dir):
+        elif os.path.isfile(status_file) and not check_drive_activity():
             log.debug('WARNING! - Checkfile exists but there is no Disk I/O! Forcing Reset')
             os.remove(status_file)
             return False
@@ -176,10 +177,10 @@ def process_control(command, action, plot_dir):
     else:
         return
 
-def check_drive_activity(plot_dir):
+def check_drive_activity():
     try:
         
-        drive = get_device_by_mountpoint(plot_dir)[0][1].split('/')[2]
+        drive = get_device_by_mountpoint(get_plot_drive_to_use())[0][1].split('/')[2]
         log.debug(f'mounting point drive:{drive}')
         subprocess.call([drive_activity_test, drive])
     except subprocess.CalledProcessError as e:
