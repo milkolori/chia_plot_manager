@@ -198,6 +198,7 @@ def check_drive_activity():
 
 def main():
     while True:
+        log.debug(f'starting infinite plot processing')
         process_plot()
 
 if __name__ == '__main__':
