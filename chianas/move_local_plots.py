@@ -197,7 +197,8 @@ def check_drive_activity():
 
 
 def main():
-    process_plot()
+    while True:
+        process_plot()
 
 if __name__ == '__main__':
     main()
