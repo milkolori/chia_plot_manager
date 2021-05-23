@@ -178,6 +178,7 @@ def process_control(command, action, plot_dir):
 
 def check_drive_activity(plot_dir):
     try:
+        log.debug(f'mounting point:{get_device_by_mountpoint(plot_dir)}')
         subprocess.call([drive_activity_test, get_device_by_mountpoint(plot_dir)[0][1].split('/')[2]])
     except subprocess.CalledProcessError as e:
         log.warning(e.output)
