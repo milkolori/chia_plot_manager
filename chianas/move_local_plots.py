@@ -39,7 +39,7 @@ import subprocess
 # Are we testing?
 testing = False
 if testing:
-    plot_dir = '/home/mmv/mining/plot_manager/test_plots/'
+    plot_dirs = ['/home/mmv/mining/plot_manager/test_plots/']
     plot_size = 10000000
     status_file = '/home/mmv/mining/plot_manager/local_transfer_job_running_testing'
     drive_activity_test = '/home/mmv/mining/plot_manager/check_drive_activity.sh'
@@ -102,7 +102,7 @@ def process_plot():
         plot_dir, plot_to_process = get_list_of_plots()
 
         if plot_to_process and not testing:
-            process_control('set_status', 'start')
+            process_control('set_status', 'start', plot_dir)
             plot_path = plot_dir + '/' + plot_to_process
             log.info(f'Processing Plot: {plot_path}')
             current_plotting_drive = read_config_data('plot_manager_config', 'plotting_drives', 'current_plotting_drive', False)
@@ -120,9 +120,9 @@ def process_plot():
                 log.info(f'Total Elapsed Time: {end_time - start_time:.2f} seconds or {(end_time - start_time)/60:.2f} Minutes')
             else:
                 log.debug('FAILURE - Plot sizes DO NOT Match')
-                process_control('set_status', 'stop')  #Set to stop so it will attempt to run again in the event we want to retry....
+                process_control('set_status', 'stop', plot_dir)  #Set to stop so it will attempt to run again in the event we want to retry....
                 main() # Try Again
-            process_control('set_status', 'stop')
+            process_control('set_status', 'stop', plot_dir)
             os.remove(plot_path)
             log.info(f'Removing: {plot_path}')
         elif testing:
@@ -147,7 +147,7 @@ def verify_plot_move(current_plotting_drive, plot_path, plot_to_process):
         return False
 
 
-def process_control(command, action):
+def process_control(command, action, plot_dir):
     log.debug(f'process_control() called with [{command}] and [{action}]')
     if command == 'set_status':
         if action == "start":
@@ -163,10 +163,10 @@ def process_control(command, action):
                 log.debug(f'Status File: [{status_file}] does not exist!')
                 return
     elif command == 'check_status':
-        if os.path.isfile(status_file) and check_drive_activity():
+        if os.path.isfile(status_file) and check_drive_activity(plot_dir):
             log.debug(f'Checkfile Exists and Disk I/O is present, We are currently Copying a Plot, Exiting')
             return True
-        elif os.path.isfile(status_file) and not check_drive_activity():
+        elif os.path.isfile(status_file) and not check_drive_activity(plot_dir):
             log.debug('WARNING! - Checkfile exists but there is no Disk I/O! Forcing Reset')
             os.remove(status_file)
             return False
@@ -176,7 +176,7 @@ def process_control(command, action):
     else:
         return
 
-def check_drive_activity():
+def check_drive_activity(plot_dir):
     try:
         subprocess.call([drive_activity_test, get_device_by_mountpoint(plot_dir)[0][1].split('/')[2]])
     except subprocess.CalledProcessError as e:
