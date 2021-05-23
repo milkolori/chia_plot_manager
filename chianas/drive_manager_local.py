@@ -115,7 +115,7 @@ plot_size_g = 101.3623551
 receive_script = '/home/mmv/mining/plot_manager/receive_plot.sh'
 chia_log_file = '/home/pi/.chia/mainnet/log/debug.log'
 #milko start
-target_drive_pattern='/media/mmv/Ven_Work'
+target_drive_pattern='/media/mmv/Ven_Chia'
 #milko end
 
 # Date and Time Stuff
