@@ -58,7 +58,7 @@ import time
 # Let's do some housekeeping
 nas_server = 'pi@chiafarm01-internal' # Internal 10Gbe link, entry in /etc/hosts
 plot_server = 'chiaplot01'
-network_interface = 'enp9s0' # Network interface (ifconfig) that plots are sent over
+network_interface = 'enp10s0' # Network interface (ifconfig) that plots are sent over
 
 # Are we testing?
 testing = False
